@@ -1,0 +1,70 @@
+# Словник, який зберігає інформацію про різні моделі автомобілів.
+cars = {
+"ModelA": {"cost": 15000, "age": 5},
+"ModelB": {"cost": 25000, "age": 7},
+"ModelC": {"cost": 18000, "age": 6},
+"ModelD": {"cost": 30000, "age": 8},
+"ModelE": {"cost": 12000, "age": 4},
+"ModelF": {"cost": 22000, "age": 3},
+"ModelG": {"cost": 28000, "age": 4},
+"ModelH": {"cost": 16000, "age": 6},
+"ModelI": {"cost": 35000, "age": 7},
+"ModelJ": {"cost": 19000, "age": 5}
+}
+
+# Функція для виведення всіх автомобілів разом із їхньою інформацією.
+def display_all():
+    for model, data in cars.items():
+        print(f"{model} - Cost: {data['cost']} - Age: {data['age']}")
+
+# Функція для додавання нового автомобіля до словника.
+def add_entry(model, cost, age):
+    if model in cars:
+        print("Model already exists!")
+        return
+    cars[model] = {"cost": cost, "age": age}
+
+# Функція для видалення автомобіля зі словника.
+def delete_entry(model):
+    if model not in cars:
+        print("Model not found!")
+        return
+    del cars[model]
+
+# Функція для виведення інформації про автомобілі, відсортовану за моделлю.
+def display_sorted():
+    for model in sorted(cars.keys()):
+        print(f"{model} - Cost: {cars[model]['cost']} - Age: {cars[model]['age']}")
+
+# Функція для знаходження середньої вартості автомобілів, вік яких перевищує 6 років.
+def average_cost_above_age(age=6):
+    total_cost = 0
+    count = 0
+    for model, data in cars.items():
+        if data['age'] > age:
+            total_cost += data['cost']
+            count += 1
+    return total_cost / count if count else 0
+
+# Основний цикл програми, де користувач може вибирати дії.
+while True:
+    choice = int(input("\n1. Display all cars\n2. Add a car\n3. Delete a car\n4. Display sorted by model\n5. Average cost for cars above 6 years\n6. Exit\nChoice: "))
+    
+    if choice == 1:
+        display_all()
+    elif choice == 2:
+        model = input("Enter model name: ")
+        cost = int(input("Enter model cost: "))
+        age = int(input("Enter model age: "))
+        add_entry(model, cost, age)
+    elif choice == 3:
+        model = input("Enter model name to delete: ")
+        delete_entry(model)
+    elif choice == 4:
+        display_sorted()
+    elif choice == 5:
+        print(f"Average cost for cars above 6 years: {average_cost_above_age()}")
+    elif choice == 6:
+        break
+    else:
+        print("Invalid choice!")
